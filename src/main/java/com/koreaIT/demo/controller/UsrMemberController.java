@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.koreaIT.demo.service.MemberService;
 import com.koreaIT.demo.util.Util;
+import com.koreaIT.demo.vo.Member;
 import com.koreaIT.demo.vo.ResultData;
 
 @Controller
