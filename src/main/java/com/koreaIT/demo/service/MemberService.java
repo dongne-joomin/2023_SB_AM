@@ -40,7 +40,7 @@ public class MemberService {
 		
 		memberRepository.doJoin(loginId, loginPw, name, nickname, cellphoneNum, email);
 		
-		return ResultData.from("S-1", Util.f("%s회원님 환영합니다.", loginId), memberRepository.getLastInsertId());
+		return ResultData.from("S-1", Util.f("%s회원님 환영합니다.", loginId),"member", memberRepository.getLastInsertId());
 	}
 	
 	private Member getMemberByNameAndEmail(String name, String email) {

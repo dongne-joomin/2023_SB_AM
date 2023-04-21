@@ -2,6 +2,8 @@ package com.koreaIT.demo.controller;
 
 import java.util.List;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +47,7 @@ public class UsrArticleController {
 		
 		int id = articleService.getLastInserId();
 		
-		return ResultData.from("S-1", Util.f("%d번 게시물이 생성되었습니다.", id), articleService.getArticleById(id));
+		return ResultData.from("S-1", Util.f("%d번 게시물이 생성되었습니다.", id), "articles" ,articleService.getArticleById(id));
 	}
 
 	@RequestMapping("/usr/article/getArticle")
@@ -59,32 +61,36 @@ public class UsrArticleController {
 			return ResultData.from("F-1", Util.f("%d번 게시물은 존재하지 않습니다.", id));
 		}
 
-		return ResultData.from("S-1", Util.f("%d번 게시물입니다.", id), article);
+		return ResultData.from("S-1", Util.f("%d번 게시물입니다.", id), "article", article);
 	}
 
 	@RequestMapping("/usr/article/getArticles")
 	@ResponseBody
 	public ResultData<List<Article>> getArticles() {
 
-		return ResultData.from("S-1", "게시물리스트", articleService.getArticles()); 
+		return ResultData.from("S-1", "게시물리스트", "articles", articleService.getArticles()); 
 	}
 
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
-	public ResultData doModify(HttpSession httpSession, int id, String title, String body) {
+	public ResultData<Article> doModify(HttpSession httpSession, int id, String title, String body) {
 		
 		if (httpSession.getAttribute("loginedMemberId") == null) {
 			return ResultData.from("F-A", "로그인후 이용해주세요.");
 		}
 		
 		Article article = articleService.getArticleById(id);
-
+		
 		if (article == null) {
 			return ResultData.from("F-1", Util.f("%d번 게시물은 존재하지 않습니다.", id));
 		}
-		articleService.modifyArticle(id, title, body);
+		ResultData actorCanModifyRd = articleService.artorCanModify((int) httpSession.getAttribute("loginedMemberId"),article.getMemberId());	
 
-		return ResultData.from("S-1", Util.f("%d번 게시물을 수정했습니다.", id));
+		if (actorCanModifyRd.isFail()) {
+			return ResultData.from(actorCanModifyRd.getResultCode(), actorCanModifyRd.getMsg());
+		}
+		
+		return articleService.modifyArticle(id, title, body);
 	}
 
 	@RequestMapping("/usr/article/doDelete")
@@ -100,9 +106,11 @@ public class UsrArticleController {
 		if (article == null) {
 			return ResultData.from("F-1", Util.f("%d번 게시물은 존재하지 않습니다.", id));
 		}
-		articleService.deleteArticle(id);
+		if ((int) httpSession.getAttribute("loginedMemberId") != article.getMemberId()) {
+			return ResultData.from("F-B", "해당 게시물에 대한 삭제 권한이 없습니다.");
+		}	
 
 		return ResultData.from("S-1", Util.f("%d번 게시물을 삭제했습니다.", id));
 	}
-
+	
 }
