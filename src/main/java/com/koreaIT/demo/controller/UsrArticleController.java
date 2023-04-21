@@ -2,7 +2,7 @@ package com.koreaIT.demo.controller;
 
 import java.util.List;
 
-import javax.naming.spi.DirStateFactory.Result;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,8 +13,6 @@ import com.koreaIT.demo.service.ArticleService;
 import com.koreaIT.demo.util.Util;
 import com.koreaIT.demo.vo.Article;
 import com.koreaIT.demo.vo.ResultData;
-
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UsrArticleController {
