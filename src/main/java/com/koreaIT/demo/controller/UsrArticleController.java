@@ -50,17 +50,17 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/detail")
-	public String shoeDetail(Model model, int id) {
+	public String shoeDetail(Model model, HttpSession httpSession, int id) {
 
-		Article article = articleService.getForPrintArticle(id);
+		int loginedMemberId = 0;
+		
+		if (httpSession.getAttribute("loginedMemberId") == null) {
+			loginedMemberId = (int) httpSession.getAttribute("loginedMemberId");
+		}
+		Article article = articleService.getForPrintArticle(loginedMemberId, id);
 		
 		model.addAttribute("article", article);
 		
-//		if (article == null) {
-//
-//			return id + "번글은 존재하지 않습니다.";
-//		}
-
 		return "usr/article/detail";
 	}
 
