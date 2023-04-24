@@ -20,4 +20,6 @@ public interface ArticleRepository {
 	public void modifyArticle(int id, String title, String body);
 	
 	public void deleteArticle(int id);
+
+	public Article getForPrintArticle(int id);
 }
