@@ -1,0 +1,21 @@
+/* @charset "UTF-8"; */
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html > body {
+	font-family: 'SUIT-Regular', sans-serif;
+}
+
+.table-box-type-1 > table {
+	width: 100%;
+}
+
+.table-box-type-1 > table th, .table-box-type-1 > table td{
+	border: 1px solid;
+	padding: 10px;
+	text-align: center;
+}
