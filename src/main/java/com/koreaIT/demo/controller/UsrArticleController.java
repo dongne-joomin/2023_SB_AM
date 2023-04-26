@@ -32,11 +32,7 @@ public class UsrArticleController {
 	public ResultData<Article> doAdd(HttpServletRequest req, String title, String body) {
 		
 		Rq rq = (Rq) req.getAttribute("Rq");
-		
-//		if (rq.getLoginedMemberId() == 0) {
-//			return ResultData.from("F-A", "로그인후 이용해주세요.");
-//		}
-		
+			
 		if (Util.empty(title)) {
 			return ResultData.from("f-1", "제목을 입력해주세요.");
 		}

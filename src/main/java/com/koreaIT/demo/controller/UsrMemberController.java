@@ -1,9 +1,11 @@
 package com.koreaIT.demo.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -11,6 +13,7 @@ import com.koreaIT.demo.service.MemberService;
 import com.koreaIT.demo.util.Util;
 import com.koreaIT.demo.vo.Member;
 import com.koreaIT.demo.vo.ResultData;
+import com.koreaIT.demo.vo.Rq;
 
 @Controller
 public class UsrMemberController {
@@ -60,33 +63,35 @@ public class UsrMemberController {
 		
 	}
 	
+	@RequestMapping ("/usr/member/login")
+	public String login(HttpSession httpSession, String loginId, String loginPw) {
+		return "/usr/member/login";
+	}
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public ResultData doLogin(HttpSession httpSession, String loginId, String loginPw) {
+	public String doLogin(HttpSession httpSession, String loginId, String loginPw) {
 		
-		if (httpSession.getAttribute("loginedMemberId") != null) {
-			return ResultData.from("F-B", "로그아웃 후 이용해주세요.");
+		if (httpSession.getAttribute("loginedMemberId") == null) {
+			return Util.jsHistoryBack("로그아웃 후 이용해주세요");
 		}
 		
 		if (Util.empty(loginId)) {
-			return ResultData.from("F-1", "아이디를 입력해주세요");
+			return Util.jsHistoryBack("아이디를 입력해주세요");
 		}
 		if (Util.empty(loginPw)) {
-			return ResultData.from("F-2", "비밀번호를 입력해주세요");
+			return Util.jsHistoryBack("비밀번호를 입력해주세요");
 		}
 		
 		Member member = memberService.getMemberByLoginId(loginId);
 		if (member == null) {
-			return ResultData.from("F-3", Util.f("%s은(는) 존재하지 않는 아이디 입니다.", loginId));
+			return Util.jsHistoryBack(Util.f("%s은(는) 존재하지 않는 아이디 입니다.", loginId));
 		}
 		
 		if (member.getLoginPw().equals(loginPw) == false) {
-			return ResultData.from("F-4", "비밀번호가 일치하지 않습니다.");			
+			return Util.jsHistoryBack("비밀번호가 일치하지 않습니다.");			
 		}
 		
-		httpSession.setAttribute("loginedMemberId", member.getId());
-		
-		return ResultData.from("S-1", Util.f("%s회원님 환영합니다.", member.getNickname()));
+		return Util.jsReplace(Util.f("%s회원님 환영합니다.", member.getNickname()), "/");
 		}
 		
 		@RequestMapping("/usr/member/doLogout")
