@@ -5,7 +5,8 @@
 <%@ include file="../common/head.jsp"%>
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
-		<form action="doLogin" method="POST">
+		<form action="doModify" method="POST">
+			<input type="hidden" name="id" value="${article.id }"/>
 			<div class="table-box-type-1">
 				<table>
 					<colgroup>
@@ -13,20 +14,26 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th>로그인 아이디</th>
-							<td><input class="w-96" type="text" name="loginId"
-								placeholder="아이디를 입력해주세요" /></td>
+							<th>번호</th>
+							<td>${article.id }</td>
 						</tr>
 						<tr>
-							<th>로그인 비밀번호</th>
-							<td><input class="w-96" type="text" name="loginPw"
-								placeholder="비밀번호를 입력해주세요" /></td>
+							<th>작성날짜</th>
+							<td>${article.regDate }</td>
 						</tr>
 						<tr>
-							<td colspan="2"><button>로그인</button></td>
+							<th>제목</th>
+							<td><input type="text" name="title"
+								value="${article.title }" placeholder="제목을 입력해주세요." /></td>
+						</tr>
+						<tr>
+							<th>내용</th>
+							<td><textarea name="body" placeholder="내용을 입력해주세요.">${article.body }</textarea></td>
+						</tr>
+						<tr>
+							<td colspan="2"><button>수정</button></td>
 						</tr>
 					</tbody>
-
 				</table>
 			</div>
 		</form>

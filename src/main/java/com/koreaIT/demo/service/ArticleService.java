@@ -24,8 +24,8 @@ public class ArticleService {
 		articleRepository.writeArticle(memberId, title, body);
 	}
 
-	public int getLastInserId() {
-		return articleRepository.getLastInserId();
+	public int getLastInsertId() {
+		return articleRepository.getLastInsertId();
 	}
 
 	public Article getArticleById(int id) {
@@ -58,16 +58,14 @@ public class ArticleService {
 		return ResultData.from("S-1", "가능");
 	} 
 
-	public Article getForPrintArticle(int loginedMemberId, int id) {
+	public Article getForPrintArticle(int id) {
 	
 		Article article = articleRepository.getForPrintArticle(id);
-		
-		actorCanChangeData(loginedMemberId, article);
 		
 		return article;
 	}
 
-	private void actorCanChangeData(int loginedMemberId, Article article) {
+	public void actorCanChangeData(int loginedMemberId, Article article) {
 		if (article == null) {
 			return;
 		}

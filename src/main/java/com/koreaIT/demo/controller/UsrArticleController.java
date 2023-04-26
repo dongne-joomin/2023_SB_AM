@@ -25,94 +25,113 @@ public class UsrArticleController {
 	public UsrArticleController(ArticleService articleService) {
 		this.articleService = articleService;
 	}
-	
+
 	// 액션 메서드
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
 	public ResultData<Article> doAdd(HttpServletRequest req, String title, String body) {
-		
-		Rq rq = (Rq) req.getAttribute("Rq");
-			
+
+		Rq rq = (Rq) req.getAttribute("rq");
+
 		if (Util.empty(title)) {
 			return ResultData.from("f-1", "제목을 입력해주세요.");
 		}
-		
+
 		if (Util.empty(body)) {
 			return ResultData.from("f-1", "내용을 입력해주세요.");
 		}
-		
+
 		articleService.writeArticle(rq.getLoginedMemberId(), title, body);
-		
-		int id = articleService.getLastInserId();
-		
-		return ResultData.from("S-1", Util.f("%d번 게시물이 생성되었습니다.", id), "articles" ,articleService.getArticleById(id));
+
+		int id = articleService.getLastInsertId();
+
+		return ResultData.from("S-1", Util.f("%d번 게시물이 생성되었습니다.", id), "articles", articleService.getArticleById(id));
 	}
 
 	@RequestMapping("/usr/article/detail")
 	public String shoeDetail(Model model, HttpServletRequest req, int id) {
 
-		Rq rq = (Rq) req.getAttribute("Rq");
-		
-		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
-		
+		Rq rq = (Rq) req.getAttribute("rq");
+
+		Article article = articleService.getForPrintArticle(id);
+
+		articleService.actorCanChangeData(rq.getLoginedMemberId(), article);
+
 		model.addAttribute("article", article);
-		
+
 		return "usr/article/detail";
 	}
 
 	@RequestMapping("/usr/article/list")
 	public String showList(Model model) {
 		List<Article> articles = articleService.getArticles();
-		
+
 		model.addAttribute("articles", articles);
 
-		return "usr/article/list"; 
+		return "usr/article/list";
+	}
+
+	@RequestMapping("/usr/article/modify")
+	public String modify(HttpServletRequest req, Model model, int id) {
+
+		Rq rq = (Rq) req.getAttribute("rq");
+
+		Article article = articleService.getForPrintArticle(id);
+
+		ResultData actorCanMD = articleService.actorCanMD(rq.getLoginedMemberId(), article);
+
+		if (actorCanMD.isFail()) {
+			return rq.jsReturnOnView(actorCanMD.getMsg(), true);
+		}
+
+		model.addAttribute("article", article);
+
+		return "usr/article/modify";
 	}
 
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
 	public ResultData<Article> doModify(HttpServletRequest req, int id, String title, String body) {
-		
-		Rq rq = (Rq) req.getAttribute("Rq");
-		
+
+		Rq rq = (Rq) req.getAttribute("rq");
+
 		if (rq.getLoginedMemberId() == 0) {
 			return ResultData.from("F-A", "로그인후 이용해주세요.");
 		}
-		
+
 		Article article = articleService.getArticleById(id);
-		
-		ResultData actorCanModifyRd = articleService.actorCanMD(rq.getLoginedMemberId(), article);	
+
+		ResultData actorCanModifyRd = articleService.actorCanMD(rq.getLoginedMemberId(), article);
 
 		if (actorCanModifyRd.isFail()) {
 			return ResultData.from(actorCanModifyRd.getResultCode(), actorCanModifyRd.getMsg());
 		}
-		
+
 		return articleService.modifyArticle(id, title, body);
 	}
 
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
 	public String doDelete(HttpServletRequest req, int id) {
-		
-		Rq rq = (Rq) req.getAttribute("Rq");
-		
+
+		Rq rq = (Rq) req.getAttribute("rq");
+
 		if (rq.getLoginedMemberId() == 0) {
 			return Util.jsHistoryBack("로그인 후 이용해주세요");
 		}
-		
+
 		Article article = articleService.getArticleById(id);
-		
+
 		ResultData actorCanModifyRd = articleService.actorCanMD(rq.getLoginedMemberId(), article);
-		
+
 		if (actorCanModifyRd.isFail()) {
 			return Util.jsHistoryBack(actorCanModifyRd.getMsg());
 		}
-		
+
 		articleService.deleteArticle(id);
-		
+
 		return Util.jsReplace(Util.f("%d번 게시물을 삭제했습니다", id), "list");
 
-		
 	}
-	
+
 }
