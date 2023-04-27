@@ -5,13 +5,13 @@
 <%@ include file="../common/head.jsp"%>
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
-		<div class="table-box-type-1">
-			<table>
+		<div class="table-box-type-1 overflow-x-auto w-full">
+			<table  class="table table-zebra w-full">
 				<colgroup>
 					<col width="200" />
 				</colgroup>
 				<tbody>
-					<tr>
+					<tr class="active">
 						<th>번호</th>
 						<td>${article.id }</td>
 					</tr>
@@ -19,7 +19,7 @@
 						<th>작성날짜</th>
 						<td>${article.regDate }</td>
 					</tr>
-					<tr>
+					<tr class="active">
 						<th>수정날짜</th>
 						<td>${article.updateDate }</td>
 					</tr>
@@ -27,7 +27,7 @@
 						<th>작성자</th>
 						<td>${article.writerName }</td>
 					</tr>
-					<tr>
+					<tr class="active">
 						<th>제목</th>
 						<td>${article.title }</td>
 					</tr>
@@ -39,10 +39,10 @@
 			</table>
 		</div>
 		<div class="btns">
-			<button class="btn-text-link" type="button" onclick="history.back();">뒤로가기</button>
+			<button class="btn btn-active btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
 			<c:if test="${article.actorCanChangeData }">
-				<a class="btn-text-link" href="modify?id=${article.id }">수정</a>
-				<a class="btn-text-link" href="doDelete?id=${article.id }"
+				<a class="btn btn-active btn-ghost" href="modify?id=${article.id }">수정</a>
+				<a class="btn btn-active btn-ghost" href="doDelete?id=${article.id }"
 					onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;">삭제</a>
 			</c:if>
 		</div>

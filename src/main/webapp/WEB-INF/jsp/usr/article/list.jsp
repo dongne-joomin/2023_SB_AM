@@ -4,29 +4,35 @@
 <c:set var="pageTitle" value="LISt" />
 <%@ include file="../common/head.jsp"%>
 <section class="mt-8 text-xl">
-		<div class="container mx-auto px-3">
-			<div class="table-box-type-1">
-				<table border="1">
-					<thead>
-						<tr>
-							<th>번호</th>
-							<th>날짜</th>
-							<th>제목</th>
-							<th>작성자</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="article" items="${articles }">
-							<tr>
-								<td>${article.id }</td>
-								<td>${article.regDate.substring(2, 16) }</td>
-								<td><a class="hover:underline"  href="detail?id=${article.id }">${article.title }</a></td>
-								<td>${article.writerName }</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+	<div class="container mx-auto px-3 overflow-x-auto">
+		<c:if test="${rq.getLoginedMemberId() != 0 }">
+			<div class="mb-2 flex justify-end">
+				<a class="btn btn-active btn-ghost" href="write">글쓰기</a>
 			</div>
+		</c:if>
+		<div class="table-box-type-1 table table-compact w-full">
+			<table border="1">
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>날짜</th>
+						<th>제목</th>
+						<th>작성자</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="article" items="${articles }">
+						<tr class="hover">
+							<td>${article.id }</td>
+							<td>${article.regDate.substring(2, 16) }</td>
+							<td><a class="hover:underline"
+								href="detail?id=${article.id }">${article.title }</a></td>
+							<td>${article.writerName }</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
 		</div>
-	</section>
+	</div>
+</section>
 <%@ include file="../common/foot.jsp"%>

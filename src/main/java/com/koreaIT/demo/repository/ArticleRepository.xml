@@ -12,7 +12,7 @@
 				`body` = #{body} 	
 	</insert>
 	
-	<select id="getLastInserId" resultType="int">
+	<select id="getLastInsertId" resultType="int">
 		SELECT LAST_INSERT_ID()
 	</select>
 	
