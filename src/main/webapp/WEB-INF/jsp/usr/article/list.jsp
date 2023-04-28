@@ -5,11 +5,12 @@
 <%@ include file="../common/head.jsp"%>
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3 overflow-x-auto">
-		<c:if test="${rq.getLoginedMemberId() != 0 }">
-			<div class="mb-2 flex justify-end">
+		<div class="mb-2 flex justify-between items-end">
+			<div><span>총 : ${articlesCnt }개</span></div>
+			<c:if test="${rq.getLoginedMemberId() != 0 }">
 				<a class="btn btn-active btn-ghost" href="write">글쓰기</a>
-			</div>
-		</c:if>
+			</c:if>
+		</div>
 		<div class="table-box-type-1 table table-compact w-full">
 			<table border="1">
 				<thead>
