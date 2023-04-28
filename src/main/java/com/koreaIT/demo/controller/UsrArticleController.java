@@ -2,8 +2,6 @@ package com.koreaIT.demo.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,11 +21,13 @@ public class UsrArticleController {
 
 	private ArticleService articleService;
 	private BoardService boardService;
+	private Rq rq;
 
 	@Autowired
-	public UsrArticleController(ArticleService articleService, BoardService boardService) {
+	public UsrArticleController(ArticleService articleService, BoardService boardService, Rq rq) {
 		this.articleService = articleService;
 		this.boardService = boardService;
+		this.rq = rq;
 	}
 
 	@RequestMapping("/usr/article/write")
@@ -38,9 +38,7 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public String doWrite(HttpServletRequest req, int boardId, String title, String body) {
-
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String doWrite(int boardId, String title, String body) {
 
 		if (Util.empty(title)) {
 			return Util.jsHistoryBack("제목을 입력해주세요.");
@@ -58,9 +56,7 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/detail")
-	public String shoeDetail(Model model, HttpServletRequest req, int id) {
-
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String shoeDetail(Model model, int id) {
 
 		Article article = articleService.getForPrintArticle(id);
 
@@ -72,9 +68,7 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/list")
-	public String showList(HttpServletRequest req, Model model, int boardId) {
-
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String showList(Model model, int boardId) {
 		
 		Board board = boardService.getBoardById(boardId);
 		
@@ -94,9 +88,7 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/modify")
-	public String modify(HttpServletRequest req, Model model, int id) {
-
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String modify(Model model, int id) {
 
 		Article article = articleService.getForPrintArticle(id);
 
@@ -113,9 +105,7 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
-	public String doModify(HttpServletRequest req, int id, String title, String body) {
-
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String doModify(int id, String title, String body) {
 
 		Article article = articleService.getArticleById(id);
 
@@ -132,9 +122,7 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
-	public String doDelete(HttpServletRequest req, int id) {
-
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String doDelete(int id) {
 
 		if (rq.getLoginedMemberId() == 0) {
 			return Util.jsHistoryBack("로그인 후 이용해주세요");
