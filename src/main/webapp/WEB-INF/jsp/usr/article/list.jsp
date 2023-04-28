@@ -14,7 +14,7 @@
 		<div class="table-box-type-1 table table-compact w-full">
 			<table border="1">
 				<thead>
-					<tr class="active">
+					<tr class="active" >
 						<th>번호</th>
 						<th>날짜</th>
 						<th>제목</th>

@@ -46,8 +46,8 @@
 			<if test="boardId != 0">
 				AND boardId = #{boardId}
 			</if>
-				
 			ORDER BY A.id DESC
+			LIMIT #{limitStart}, #{itemsInAPage}
 	</select>
 	
 	<update id="modifyArticle">
