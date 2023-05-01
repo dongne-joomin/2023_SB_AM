@@ -34,7 +34,6 @@
 			</c:if>
 		</ul>
 	</div>
-	
 	<section class="my-3 text-2xl">
 		<div class="container mx-auto px-3">
 			<h1>${pageTitle }</h1>
