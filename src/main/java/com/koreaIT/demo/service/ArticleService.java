@@ -31,15 +31,15 @@ public class ArticleService {
 		return articleRepository.getArticleById(id);
 	}
 
-	public int getArticlesCnt(int boardId) {
-		return articleRepository.getArticlesCnt(boardId);
+	public int getArticlesCnt(int boardId, String searchKeywordType, String searchKeyword) {
+		return articleRepository.getArticlesCnt(boardId, searchKeywordType, searchKeyword);
 	}
 
-	public List<Article> getArticles(int boardId, int itemsInAPage, int page) {
+	public List<Article> getArticles(int boardId, String searchKeywordType, String searchKeyword, int itemsInAPage, int page) {
 		
 		int limitStart = (page - 1) * itemsInAPage;
 		
-		return articleRepository.getArticles(boardId, limitStart, itemsInAPage);
+		return articleRepository.getArticles(boardId, searchKeywordType, searchKeyword, limitStart, itemsInAPage);
 	}
 
 	public void modifyArticle(int id, String title, String body) {
