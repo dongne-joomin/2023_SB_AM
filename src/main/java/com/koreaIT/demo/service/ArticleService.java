@@ -35,10 +35,11 @@ public class ArticleService {
 		return articleRepository.getArticlesCnt(boardId, searchKeywordType, searchKeyword);
 	}
 
-	public List<Article> getArticles(int boardId, String searchKeywordType, String searchKeyword, int itemsInAPage, int page) {
-		
+	public List<Article> getArticles(int boardId, String searchKeywordType, String searchKeyword, int itemsInAPage,
+			int page) {
+
 		int limitStart = (page - 1) * itemsInAPage;
-		
+
 		return articleRepository.getArticles(boardId, searchKeywordType, searchKeyword, limitStart, itemsInAPage);
 	}
 
@@ -79,14 +80,18 @@ public class ArticleService {
 		article.setActorCanChangeData(actorCanChangeDataRd.isSuccess());
 	}
 
-	public ResultData<Integer> increseHitCount(int id) {
-		
-		int affectedRowsCount = articleRepository.increseHitCount(id);
-		
-		if(affectedRowsCount == 0) {
-			return ResultData.from("F-1", "해당 게시물은 존재하지 않습니다.","affectedRoesCount",affectedRowsCount);
+	public ResultData<Integer> increaseHitCount(int id) {
+
+		int affectedRowsCount = articleRepository.increaseHitCount(id);
+
+		if (affectedRowsCount == 0) {
+			return ResultData.from("F-1", "해당 게시물은 존재하지 않습니다.", "affectedRoesCount", affectedRowsCount);
 		}
 		return ResultData.from("S-1", "조회수 증가", "affectedRowsCount", affectedRowsCount);
+	}
+
+	public int getArticleHitCount(int id) {
+		return articleRepository.getArticleHitCount(id);
 	}
 
 }

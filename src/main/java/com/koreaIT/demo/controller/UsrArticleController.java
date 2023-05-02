@@ -59,13 +59,8 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/detail")
 	public String shoeDetail(Model model, int id) {
 
-		ResultData<Integer> increseHitCountRd = articleService.increseHitCount(id);
-		
-		if(increseHitCountRd.isFail()) {
-			return rq.jsReturnOnView(increseHitCountRd.getMsg(), true);
-		}
 		Article article = articleService.getForPrintArticle(id);
-		
+
 		articleService.actorCanChangeData(rq.getLoginedMemberId(), article);
 
 		model.addAttribute("article", article);
@@ -73,10 +68,27 @@ public class UsrArticleController {
 		return "usr/article/detail";
 	}
 
+	@RequestMapping("/usr/article/doIncreaseHitCount")
+	@ResponseBody
+	public ResultData<Integer> doIncreaseHitCount(int id) {
+
+		ResultData<Integer> increaseHitCountRd = articleService.increaseHitCount(id);
+
+		if (increaseHitCountRd.isFail()) {
+			return increaseHitCountRd;
+		}
+
+		ResultData<Integer> rd = ResultData.from(increaseHitCountRd.getResultCode(), increaseHitCountRd.getMsg(),
+				"hitCount", articleService.getArticleHitCount(id));
+
+		rd.setData2("id", id);
+
+		return rd;
+	}
+
 	@RequestMapping("/usr/article/list")
 	public String showList(Model model, @RequestParam(defaultValue = "1") int boardId,
-			@RequestParam(defaultValue = "1") int page, 
-			@RequestParam(defaultValue = "title") String searchKeywordType,
+			@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "title") String searchKeywordType,
 			@RequestParam(defaultValue = "") String searchKeyword) {
 
 		if (page <= 0) {
@@ -94,7 +106,8 @@ public class UsrArticleController {
 
 		int pagesCount = (int) Math.ceil((double) articlesCnt / itemsInAPage);
 
-		List<Article> articles = articleService.getArticles(boardId, searchKeywordType, searchKeyword, itemsInAPage, page);
+		List<Article> articles = articleService.getArticles(boardId, searchKeywordType, searchKeyword, itemsInAPage,
+				page);
 
 		model.addAttribute("page", page);
 		model.addAttribute("pagesCount", pagesCount);
