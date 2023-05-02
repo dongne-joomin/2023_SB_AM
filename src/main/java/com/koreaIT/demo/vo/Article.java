@@ -16,6 +16,7 @@ public class Article {
 	private int boardId;
 	private String title;
 	private String body;
+	private String hitCount;
 	
 	private String writerName;
 	private boolean actorCanChangeData;

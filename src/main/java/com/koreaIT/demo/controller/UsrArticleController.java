@@ -59,8 +59,13 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/detail")
 	public String shoeDetail(Model model, int id) {
 
+		ResultData<Integer> increseHitCountRd = articleService.increseHitCount(id);
+		
+		if(increseHitCountRd.isFail()) {
+			return rq.jsReturnOnView(increseHitCountRd.getMsg(), true);
+		}
 		Article article = articleService.getForPrintArticle(id);
-
+		
 		articleService.actorCanChangeData(rq.getLoginedMemberId(), article);
 
 		model.addAttribute("article", article);

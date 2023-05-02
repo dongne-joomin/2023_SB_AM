@@ -82,6 +82,12 @@
 			LIMIT #{limitStart}, #{itemsInAPage}
 	</select>
 	
+	<update id="increseHitCount">
+		UPDATE article 
+			SET hitCount = hitCount + 1
+			WHERE id = #{id}
+	</update>
+	
 	<update id="modifyArticle">
 		UPDATE article 
 			<set>

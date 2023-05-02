@@ -24,4 +24,6 @@ public interface ArticleRepository {
 	public Article getForPrintArticle(int id);
 
 	public int getArticlesCnt(int boardId, String searchKeywordType, String searchKeyword);
+
+	public int increseHitCount(int id);
 }
