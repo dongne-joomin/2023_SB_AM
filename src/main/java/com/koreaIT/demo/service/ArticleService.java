@@ -80,18 +80,8 @@ public class ArticleService {
 		article.setActorCanChangeData(actorCanChangeDataRd.isSuccess());
 	}
 
-	public ResultData<Integer> increaseHitCount(int id) {
-
-		int affectedRowsCount = articleRepository.increaseHitCount(id);
-
-		if (affectedRowsCount == 0) {
-			return ResultData.from("F-1", "해당 게시물은 존재하지 않습니다.", "affectedRoesCount", affectedRowsCount);
-		}
-		return ResultData.from("S-1", "조회수 증가", "affectedRowsCount", affectedRowsCount);
-	}
-
-	public int getArticleHitCount(int id) {
-		return articleRepository.getArticleHitCount(id);
+	public void increaseHitCount(int id) {
+		articleRepository.increaseHitCount(id);
 	}
 
 }

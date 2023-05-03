@@ -20,12 +20,20 @@
 		</div>
 		<div class="table-box-type-1 table table-compact w-full">
 			<table border="1">
+				<colgroup>
+					<col width="60" />
+					<col width="200" />
+					<col width="" />
+					<col width="120" />
+					<col width="60" />
+				</colgroup>
 				<thead>
 					<tr class="active">
 						<th>번호</th>
 						<th>날짜</th>
 						<th>제목</th>
 						<th>작성자</th>
+						<th>조회수</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -36,6 +44,7 @@
 							<td><a class="hover:underline"
 								href="detail?id=${article.id }">${article.title }</a></td>
 							<td>${article.writerName }</td>
+							<td>${article.hitCount }</td>
 						</tr>
 					</c:forEach>
 				</tbody>

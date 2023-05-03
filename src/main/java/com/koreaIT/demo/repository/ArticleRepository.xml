@@ -88,12 +88,6 @@
 			WHERE id = #{id}
 	</update>
 	
-	<select id="getArticleHitCount" resultType="int">
-		SELECT hitCount
-			FROM article
-			WHERE id = #{id}
-	</select>
-	
 	<update id="modifyArticle">
 		UPDATE article 
 			<set>
