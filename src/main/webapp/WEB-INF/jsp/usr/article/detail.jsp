@@ -43,7 +43,7 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="btns">
+		<div class="mt-2 btns">
 			<button class="btn btn-active btn-ghost" type="button"
 				onclick="history.back();">뒤로가기</button>
 			<c:if test="${article.actorCanChangeData }">
