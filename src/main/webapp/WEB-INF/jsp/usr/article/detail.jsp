@@ -3,15 +3,26 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="Detail" />
 <%@ include file="../common/head.jsp"%>
-	<script>
+<script>
 		function getReactionPoint(){
 			
 			$.get('../reactionPoint/getReactionPoint', {
 				relId : ${article.id},
 				relTypeCode : 'article'
 			}, function(data) {
-				
-				console.log(data);
+
+				if(data.data1.sumReactionPoint > 0) {
+					let goodBtn = $('#goodBtn');
+					goodBtn.removeClass('btn-outline');
+					goodBtn.addClass('btn-info');
+					goodBtn.attr('href','../reactionPoint/doDeleteReactionPoint?relId=${article.id }&relTypeCode=article&point=1')
+				} else if (data.data1.sumReactionPoint < 0) {
+					let badBtn = $('#badBtn')
+					badBtn.removeClass('btn-outline');
+					badBtn.addClass('btn-info');
+					badBtn.attr('href','../reactionPoint/doDeleteReactionPoint?relId=${article.id }&relTypeCode=article&point=-1')
+				}
+
 				
 			}, 'json');
 			
@@ -21,6 +32,8 @@
 			getReactionPoint();
 		})
 	</script>
+
+
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
 		<div class="table-box-type-1 overflow-x-auto w-full">
@@ -29,7 +42,7 @@
 					<col width="200" />
 				</colgroup>
 				<tbody>
-					<tr class="active">
+					<tr class="active ">
 						<th>번호</th>
 						<td>${article.id }</td>
 					</tr>
@@ -43,23 +56,26 @@
 					</tr>
 					<tr>
 						<th>조회수</th>
-						<td><span id="articleDetail_increaseHitCount">${article.hitCount }</span></td>
+						<td><span class="badge" id="articleDetail_increaseHitCount">${article.hitCount }</span></td>
 					</tr>
 					<tr>
 						<th>추천</th>
-						<td>
-							<c:if test="${rq.getLoginedMemberId() == 0 }">
-								<span>${article.sumReactionPoint }</span>
-							</c:if> 
-							<c:if test="${rq.getLoginedMemberId() != 0 }">
-								<button class="btn btn-outline btn-xs" onclick="">좋아요👍</button>
-								<span class="ml -2 btn-xs">좋아요 :
-							 		${article.goodReactionPoint }개</span>
-								<button class="btn btn-outline btn-xs" onclick="">싫어요👎</button>
-								<span class="ml -2 btn-xs">싫어요 :
+						<td><c:if test="${rq.getLoginedMemberId() == 0 }">
+								<span class="ml -2 btn-xs badge">좋아요 :
+									${article.goodReactionPoint }개</span>
+								<span class="ml -2 btn-xs badge">싫어요 :
 									${article.badReactionPoint }개</span>
-							</c:if>
-						</td>
+							</c:if> <c:if test="${rq.getLoginedMemberId() != 0 }">
+								<a id="goodBtn" class="btn btn-outline btn-xs"
+									href="../reactionPoint/doInsertReactionPoint?relId=${article.id }&relTypeCode=article&point=1">좋아요👍</a>
+								<span class="ml -2 btn-xs badge">좋아요 :
+									${article.goodReactionPoint }개</span>
+								<br />
+								<a id="badBtn" class="btn btn-outline btn-xs"
+									href="../reactionPoint/doInsertReactionPoint?relId=${article.id }&relTypeCode=article&point=-1">싫어요👎</a>
+								<span class="ml -2 btn-xs badge">싫어요 :
+									${article.badReactionPoint }개</span>
+							</c:if></td>
 					</tr>
 					<tr class="active">
 						<th>작성자</th>
