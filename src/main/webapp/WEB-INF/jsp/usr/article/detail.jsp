@@ -15,12 +15,12 @@
 					let goodBtn = $('#goodBtn');
 					goodBtn.removeClass('btn-outline');
 					goodBtn.addClass('btn-info');
-					goodBtn.attr('href','../reactionPoint/doDeleteReactionPoint?relId=${article.id }&relTypeCode=article&point=1')
+					goodBtn.attr('href','../reactionPoint/doDeleteReactionPoint?relId=${article.id }&relTypeCode=article&point=1');
 				} else if (data.data1.sumReactionPoint < 0) {
 					let badBtn = $('#badBtn')
 					badBtn.removeClass('btn-outline');
 					badBtn.addClass('btn-info');
-					badBtn.attr('href','../reactionPoint/doDeleteReactionPoint?relId=${article.id }&relTypeCode=article&point=-1')
+					badBtn.attr('href','../reactionPoint/doDeleteReactionPoint?relId=${article.id }&relTypeCode=article&point=-1');
 				}
 
 				

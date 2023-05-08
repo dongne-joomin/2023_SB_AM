@@ -37,7 +37,7 @@ public class UsrReactionPointController {
 	@ResponseBody
 	public String doInsertReactionPoint(int relId, String relTypeCode, int point) {
 
-		ReactionPoint reactionPoint = reactionPointService.getReactionPoint(point, relId, relTypeCode);
+		ReactionPoint reactionPoint = reactionPointService.getReactionPoint(rq.getLoginedMemberId(), relId, relTypeCode);
 
 		if (reactionPoint.getSumReactionPoint() != 0) {
 			reactionPointService.doDeleteReactionPoint(rq.getLoginedMemberId(), relId, relTypeCode);
