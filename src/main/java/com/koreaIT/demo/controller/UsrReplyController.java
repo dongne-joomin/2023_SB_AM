@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.koreaIT.demo.service.ReplyeService;
+import com.koreaIT.demo.service.ReplyService;
 import com.koreaIT.demo.util.Util;
 import com.koreaIT.demo.vo.ResultData;
 import com.koreaIT.demo.vo.Rq;
@@ -13,11 +13,11 @@ import com.koreaIT.demo.vo.Rq;
 @Controller
 public class UsrReplyController {
 
-	private ReplyeService replyService;
+	private ReplyService replyService;
 	private Rq rq;
 
 	@Autowired
-	public UsrReplyController(ReplyeService replyService, Rq rq) {
+	public UsrReplyController(ReplyService replyService, Rq rq) {
 		this.replyService = replyService;
 		this.rq = rq;
 	}
