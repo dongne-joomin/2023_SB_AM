@@ -19,6 +19,8 @@ import lombok.Getter;
 public class Rq {
 	@Getter
 	private int loginedMemberId;
+	@Getter
+	private Member loginedMember;
 	private HttpServletRequest req;
 	private HttpServletResponse resp;
 	private HttpSession httpSession;
@@ -34,10 +36,13 @@ public class Rq {
 		if (httpSession.getAttribute("loginedMemberId") != null) {
 			loginedMemberId = (int) httpSession.getAttribute("loginedMemberId");
 		}
+		
 
 		this.loginedMemberId = loginedMemberId;
-
+		this.loginedMember = (Member) httpSession.getAttribute("loginedMember");
+		
 		this.req.setAttribute("rq", this);
+		
 	}
 
 	public void jsPrintHistoryBack(String msg) {
@@ -56,10 +61,12 @@ public class Rq {
 
 	public void login(Member member) {
 		httpSession.setAttribute("loginedMemberId", member.getId());
+		httpSession.setAttribute("loginedMember", member);
 	}
 
 	public void logout() {
 		httpSession.removeAttribute("loginedMemberId");
+		httpSession.removeAttribute("loginedMember");
 	}
 
 	public String jsReturnOnView(String msg, boolean isHistoryBack) {
