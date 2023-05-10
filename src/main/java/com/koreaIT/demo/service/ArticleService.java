@@ -71,9 +71,6 @@ public class ArticleService {
 	}
 
 	public void actorCanChangeData(int loginedMemberId, Article article) {
-		if (article == null) {
-			return;
-		}
 
 		ResultData actorCanChangeDataRd = actorCanMD(loginedMemberId, article);
 
