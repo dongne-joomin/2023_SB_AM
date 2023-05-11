@@ -65,5 +65,13 @@ public class ReplyService {
 		replyRepository.deleteReply(id);
 		
 	}
+	public void doModifyReply(int id, String body) {
+		replyRepository.doModifyReply(id, body);
+		
+	}
+	public Reply getForPrintReply(int id) {
+		return replyRepository.gegetForPrintReplytReply(id);
+	}
+
 	
 }
