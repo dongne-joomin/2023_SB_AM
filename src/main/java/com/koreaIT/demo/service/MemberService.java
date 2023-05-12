@@ -64,4 +64,9 @@ public class MemberService {
 		
 	}
 
+	public void doPasswordModify(int loginedMemberId, String loginPw) {
+		memberRepository.doPasswordModify(loginedMemberId, loginPw);
+		
+	}
+
 }
