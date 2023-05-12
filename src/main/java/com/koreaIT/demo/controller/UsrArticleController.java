@@ -65,7 +65,7 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/detail")
-	public String shoeDetail(HttpServletRequest req, HttpServletResponse resp, Model model, int id) {
+	public String showDetail(HttpServletRequest req, HttpServletResponse resp, Model model, int id) {
 		
 		Cookie oldCookie = null;
 		Cookie[] cookies = req.getCookies();
