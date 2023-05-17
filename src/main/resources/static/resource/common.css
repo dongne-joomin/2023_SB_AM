@@ -6,9 +6,18 @@
     font-style: normal;
 }
 
-html > body {
+html > body , html > body .ProseMirror, html > body .toastui-editor-contents {
 	font-family: 'SUIT-Regular', sans-serif;
 	text-underline-position:under;
+}
+
+html > body .ProseMirror, html > body .toastui-editor-contents {
+	text-align: left;
+	font-size: 1.25rem;
+}
+
+html > body .toast-ui-viewer .toastui-editor-contents {
+	text-align: center;
 }
 
 .table-box-type-1 > table {
@@ -33,4 +42,5 @@ html > body {
 .border-bottom-line {
 	border-bottom : 1px solid #d6cbcb;
 }
+
 

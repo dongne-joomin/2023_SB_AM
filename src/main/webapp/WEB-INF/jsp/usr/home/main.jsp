@@ -10,7 +10,7 @@
 				Voluptatibus architecto dignissimos illo! Reprehenderit eos odit
 				natus quisquam veritatis recusandae rem illum perferendis.</div>
 		</div>
-
+	
 	</section>
 
 <%@ include file="../common/foot.jsp" %>

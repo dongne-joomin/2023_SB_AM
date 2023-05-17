@@ -3,9 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="WRITE" />
 <%@ include file="../common/head.jsp"%>
+<%@ include file="../common/toastUiEditorLib.jsp"%>
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
-		<form action="doWrite" method="POST">
+		<form action="doWrite" method="POST" onsubmit="submitForm(this); return false;">
+			<input type="hidden" name="body" />
 			<div class="table-box-type-1">
 				<table>
 					<colgroup>
@@ -14,17 +16,11 @@
 					<tbody>
 						<tr>
 							<th>게시판</th>
-							<td>
-								<label> 
-									<input type="radio" name="boardId"  value="1" checked/>
-									&nbsp;공지사항
-								</label>
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<label> 
-									<input type="radio" name="boardId"  value="2"/>
-									&nbsp;자유
-								</label>
-							</td>
+							<td><label> <input type="radio" name="boardId"
+									value="1" checked /> &nbsp;공지사항
+							</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label> <input
+									type="radio" name="boardId" value="2" /> &nbsp;자유
+							</label></td>
 						</tr>
 						<tr>
 							<th>제목</th>
@@ -33,9 +29,11 @@
 						</tr>
 						<tr>
 							<th>내용</th>
-							<td><textarea
-									class="textarea textarea-info textarea-md w-full" name="body"
-									placeholder="내용을 입력해주세요."></textarea></td>
+							<td>
+								<div class="toast-ui-editor">
+      								<script type="text/x-template"></script>
+    							</div>
+							</td>
 						</tr>
 						<tr>
 							<td colspan="2"><button>작성</button></td>

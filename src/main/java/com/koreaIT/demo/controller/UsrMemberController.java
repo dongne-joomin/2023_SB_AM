@@ -24,6 +24,11 @@ public class UsrMemberController {
 	}
 
 	// 액션 메서드
+	
+	@RequestMapping("/usr/member/join")
+	public String join() {
+		return "usr/member/join";
+	}
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
 	public ResultData<Member> doJoin(String loginId, String loginPw, String name,

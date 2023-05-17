@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="Detail" />
 <%@ include file="../common/head.jsp"%>
+<%@ include file="../common/toastUiEditorLib.jsp"%>
 <script>
 		function getReactionPoint(){
 			
@@ -87,7 +88,11 @@
 					</tr>
 					<tr class="active">
 						<th>내용</th>
-						<td>${article.getForPrintBody() }</td>
+						<td>
+							<div class="toast-ui-viewer">
+								<script type="text/x-template">${article.body }</script>
+							</div>
+						</td>
 					</tr>
 				</tbody>
 			</table>
