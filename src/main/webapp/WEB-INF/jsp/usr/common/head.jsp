@@ -21,22 +21,27 @@
 <script src="/resource/common.js" defer="defer"></script>
 </head>
 <body>
-
-	<div class="h-20 flex container mx-auto text-3xl">
+	<div class="flex justify-end mt-2 mx-auto container text-3xl">
+		<ul class="flex">
+			<c:if test="${rq.getLoginedMemberId() == 0 }">
+				<li class="hover:underline"><a class="h-full px-3 flex items-center text-xs" href="/usr/member/join"><span>회원가입</span></a></li>
+				<li class="hover:underline"><a class="h-full px-3 flex items-center text-xs" href="/usr/member/login"><span>로그인</span></a></li>
+			</c:if>
+			<c:if test="${rq.getLoginedMemberId() != 0  }">
+				<li class="hover:underline"><a class="h-full px-3 flex items-center text-xs" href="/usr/member/myPage"><span>마이페이지</span></a></li>
+				<li class="hover:underline"><a class="h-full px-3 flex items-center text-xs" href="/usr/member/doLogout"><span>로그아웃</span></a></li>
+			</c:if>
+		</ul>
+	</div>
+	<div class="h-20 flex justify-end container mx-auto text-3xl">
 		<a href="/" class="px-3 flex items-center"><span>로고</span></a>
 		<div class="flex-grow "></div>
 		<ul class="flex">
-			<li class="hover:underline"><a class="h-full px-3 flex items-center btn btn-lg btn-outline" href="/"><span>HOME</span></a></li>
-			<li class="hover:underline"><a class="h-full px-3 flex items-center btn btn-lg btn-outline" href="/usr/article/list?boardId=1"><span>NOTICE</span></a></li>
-			<li class="hover:underline"><a class="h-full px-3 flex items-center btn btn-lg btn-outline" href="/usr/article/list?boardId=2"><span>FREE</span></a></li>
-			<c:if test="${rq.getLoginedMemberId() == 0 }">
-				<li class="hover:underline"><a class="h-full px-3 flex items-center btn btn-lg btn-outline" href="/usr/member/login"><span>LOGIN</span></a></li>
-				<li class="hover:underline"><a class="h-full px-3 flex items-center btn btn-lg btn-outline" href="/usr/member/join"><span>JOIN</span></a></li>
-			</c:if>
-			<c:if test="${rq.getLoginedMemberId() != 0  }">
-				<li class="hover:underline"><a class="h-full px-3 flex items-center btn btn-lg btn-outline" href="/usr/member/myPage"><span>MYPAGE</span></a></li>
-				<li class="hover:underline"><a class="h-full px-3 flex items-center btn btn-lg btn-outline" href="/usr/member/doLogout"><span>LOGOUT</span></a></li>
-			</c:if>
+			<li class="hover:underline"><a class="h-full px-3 flex items-center " href="/"><span>HOME</span></a></li>
+			<li class="hover:underline"><a class="h-full px-3 flex items-center " href="/usr/article/list?boardId=1"><span>NOTICE</span></a></li>
+			<li class="hover:underline"><a class="h-full px-3 flex items-center " href="/usr/article/list?boardId=2"><span>FREE</span></a></li>
+			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/home/APITest"><span>API</span></a></li>
+			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/home/APITest2"><span>API2</span></a></li>
 		</ul>
 	</div>
 	<section class="my-3 text-2xl">
