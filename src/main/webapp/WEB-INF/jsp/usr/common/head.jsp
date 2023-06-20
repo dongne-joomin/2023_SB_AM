@@ -29,6 +29,7 @@
 			</c:if>
 			<c:if test="${rq.getLoginedMemberId() != 0  }">
 				<li class="hover:underline"><a class="h-full px-3 flex items-center text-xs" href="/usr/member/myPage"><span>마이페이지</span></a></li>
+				<li class="hover:underline"><a class="h-full px-3 flex items-center text-xs" href="/usr/product/register"><span>상품등록</span></a></li>
 				<li class="hover:underline"><a class="h-full px-3 flex items-center text-xs" href="/usr/member/doLogout"><span>로그아웃</span></a></li>
 			</c:if>
 		</ul>
@@ -37,9 +38,10 @@
 		<a href="/" class="px-3 flex items-center"><span>로고</span></a>
 		<div class="flex-grow "></div>
 		<ul class="flex">
-			<li class="hover:underline"><a class="h-full px-3 flex items-center " href="/"><span>HOME</span></a></li>
-			<li class="hover:underline"><a class="h-full px-3 flex items-center " href="/usr/article/list?boardId=1"><span>NOTICE</span></a></li>
-			<li class="hover:underline"><a class="h-full px-3 flex items-center " href="/usr/article/list?boardId=2"><span>FREE</span></a></li>
+			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/"><span>HOME</span></a></li>
+			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/product/P_list?boardId=3"><span>중고부품</span></a></li>
+			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/article/list?boardId=1"><span>NOTICE</span></a></li>
+			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/article/list?boardId=2"><span>FREE</span></a></li>
 			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/home/APITest"><span>API</span></a></li>
 			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/home/APITest2"><span>API2</span></a></li>
 		</ul>

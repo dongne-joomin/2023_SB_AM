@@ -98,4 +98,9 @@ public class MemberService {
 		memberRepository.doPasswordModify(member.getId(), Util.sha256(tempPassword));
 	}
 
+	public void doDelete(int loginedMemberId) {
+		memberRepository.doDelete(loginedMemberId);
+		
+	}
+
 }

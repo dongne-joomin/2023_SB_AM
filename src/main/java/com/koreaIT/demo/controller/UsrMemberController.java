@@ -1,5 +1,6 @@
 package com.koreaIT.demo.controller;
 
+import org.apache.jasper.tagplugins.jstl.core.Remove;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -127,7 +128,7 @@ public class UsrMemberController {
 	}
 	
 	@RequestMapping("/usr/member/doCheckPassword")
-	public String doCheckPassword(String loginPw) {
+	public String doCheckPassword(String loginPw, Integer delId) {
 
 		if (Util.empty(loginPw)) {
 			return rq.jsReturnOnView("비밀번호를 입력해주세요", true);
@@ -136,7 +137,7 @@ public class UsrMemberController {
 		if (rq.getLoginedMember().getLoginPw().equals(Util.sha256(loginPw)) == false) {
 			return rq.jsReturnOnView("비밀번호가 일치하지 않습니다", true);
 		}
-
+		
 		return "usr/member/modify";
 	}
 	@RequestMapping("/usr/member/doModify")
@@ -184,6 +185,19 @@ public class UsrMemberController {
 		memberService.doPasswordModify(rq.getLoginedMemberId(), Util.sha256(loginPw));
 
 		return Util.jsReplace("비밀번호가 수정되었습니다", "myPage");
+	}
+	@RequestMapping("/usr/member/memberDelete")
+	public String memberDelelte() {
+		return "usr/member/memberDelete";
+	}
+	@RequestMapping("/usr/member/doDelete")
+	@ResponseBody
+	public String doDelete() {
+		
+		rq.logout();
+		memberService.doDelete(rq.getLoginedMemberId());
+
+		return Util.jsReplace("회원정보가 삭제되었습니다", "/");
 	}
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody

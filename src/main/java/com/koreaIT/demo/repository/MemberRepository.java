@@ -1,5 +1,6 @@
 package com.koreaIT.demo.repository;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -66,5 +67,10 @@ public interface MemberRepository {
 				WHERE id = #{loginedMemberId}
 			""")
 	public void doPasswordModify(int loginedMemberId, String loginPw);
+	@Delete("""
+			DELETE FROM `member` 
+				WHERE id = #{loginedMemberId}
+			""")
+	public void doDelete(int loginedMemberId);
 	
 }

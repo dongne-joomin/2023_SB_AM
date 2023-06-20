@@ -38,8 +38,10 @@
 		<div class="btns mt-2 flex justify-between">
 			<button class="btn-text-link btn btn-active" type="button"
 				onclick="history.back();">뒤로가기</button>
-			<a class="btn-text-link btn btn-active "
+			<div><a class="btn-text-link btn btn-active "
 				href="checkPassword">수정</a>
+			<a class="btn-text-link btn btn-active "
+				href="memberDelete">회원탈퇴</a></div>
 		</div>
 	</div>
 </section>

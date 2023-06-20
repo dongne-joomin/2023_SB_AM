@@ -236,7 +236,7 @@ function getUriParams(uri) {
 	    form.title.focus();
 	    return;
 	  }
-	  
+
 	  const editor = $(form).find('.toast-ui-editor').data('data-toast-editor');
 	  const markdown = editor.getMarkdown().trim();
 	  if (markdown.length == 0) {
@@ -244,9 +244,8 @@ function getUriParams(uri) {
 	    editor.focus();
 	    return;
 	  }
-	  
 	  form.body.value = markdown;
-	  
 	  form.submit();
+
 	}
 </script>
