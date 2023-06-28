@@ -11,14 +11,21 @@
 				title = #{title}, 
 				report = #{report},
 				price = #{price},
+				`count` = #{count},
 				originName = #{orgName},
 				savedName = #{savedName},
 				savedPath = #{savedPath} 	
 	</insert>
 	
 	<select id="getProducts" resultType="Product">
-		SELECT * 
-			FROM product
+		SELECT P.*, M.name AS writerName 
+			FROM product AS P
+			INNER JOIN `member` AS M
+			ON P.memberId = M.id
+			WHERE 1 = 1
+			<if test="boardId != 0">
+				AND P.boardId = #{boardId}
+			</if>
 	</select>
 	<select id="getProductyId" resultType="Product">
 		SELECT *

@@ -10,8 +10,7 @@
 				<h2>${product.title}</h2>
 				<a href="P_detail?id=${product.id }"><img src="/usr/product/file/${product.id}" width="100"
 					height="100" /></a>
-				<h2>${product.price}</h2>	
-				<h2>${product.count}</h2>			
+				<h2>${product.price}</h2>			
 			</div>
 		</c:forEach>
 	</div>

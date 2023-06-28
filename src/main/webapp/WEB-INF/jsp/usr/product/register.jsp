@@ -29,12 +29,17 @@
 						<tr>
 							<th>가격</th>
 							<td><input class="input input-bordered input-info w-full"
-								type="text" name="price" placeholder="제목을 입력해주세요." /></td>
+								type="text" name="price" placeholder="가격을 입력해주세요." /></td>
 						</tr>
 						<tr>
 							<th>정보</th>
 							<td><input class="input input-bordered input-info w-full"
-								type="text" name="report" placeholder="제목을 입력해주세요." /></td>
+								type="text" name="report" placeholder="상품정보를 입력해주세요." /></td>
+						</tr>
+						<tr>
+							<th>수량</th>
+							<td><input class="input input-bordered input-info w-full"
+								type="text" name="count" placeholder="수량정보를 입력해주세요." /></td>
 						</tr>
 						
 						<tr>

@@ -296,3 +296,13 @@ SELECT A.*, M.name AS writerName
 	AND RP.relId = A.id
 	WHERE A.id
 	GROUP BY A.id
+
+INSERT INTO cart(
+    regDate, updateDate, memberId, productNum, cartStock
+)
+VALUES(
+    NOW(), NOW(),
+    (SELECT id FROM `member` WHERE loginId)
+    (SELECT id FROM product WHERE title)
+    1
+)

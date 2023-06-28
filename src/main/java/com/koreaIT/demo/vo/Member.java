@@ -23,5 +23,19 @@ public class Member {
 	private String delDate;
 	private String delId;
 	
+
+	public String delStatusStr() {
+		if (delStatus == 0) {
+			return "미삭제";
+		}
+		return "삭제";
+	}
+
+	public String delDateStr() {
+		if (delDate == null) {
+			return "없음";
+		}
+		return delDate.substring(2, 16);
+	}
 	}
 

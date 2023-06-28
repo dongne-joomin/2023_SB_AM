@@ -25,7 +25,7 @@ public class ProductService {
 		this.productRepository = productRepository;
 	}
 
-	public void saveFile(MultipartFile file, int memberId, int boardId, String title, String report, String price) throws IOException {
+	public void saveFile(MultipartFile file, int memberId, int boardId, String title, String report, String price, int count) throws IOException {
 		
 		if (file.isEmpty()) {
 			return;
@@ -41,14 +41,14 @@ public class ProductService {
 
 		String savedPath = fileDir + "/" + savedName;
 		
-		productRepository.insertFileInfo(memberId, boardId, title, report, orgName, savedName, savedPath, price);
+		productRepository.insertFileInfo(memberId, boardId, title, report, orgName, savedName, savedPath, price, count);
 
 		file.transferTo(new File(savedPath));
 		
 	}
 
-	public List<Product> getProducts() {
-		return productRepository.getProducts();
+	public List<Product> getProducts(int boardId, int page) {
+		return productRepository.getProducts(boardId, page);
 	}
 
 	public Product getProductyId(int fileId) {

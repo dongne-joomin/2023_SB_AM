@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.koreaIT.demo.repository.Cartrepository">
+	<insert id = "cartAdd">
+		INSERT INTO cart(
+   			regDate, updateDate, memberId, productNum, cartStock
+		)
+		VALUES(
+    		NOW(), NOW(),
+    		(SELECT id FROM `member` WHERE id = #{memberId})
+    		(SELECT id FROM product WHERE id = #{productNum})
+    		cartStock = #{cartStock}
+			)
+	</insert>
+	<select id="getCartById" resultType="Cart">
+		SELECT * 
+			FROM article 
+			WHERE id = #{id}
+	</select>
+	<select id="getProducts" resultType="Product">
+		SELECT * 
+			FROM product
+			WHERE id = #{memberId}
+	</select>
+	
+</mapper>

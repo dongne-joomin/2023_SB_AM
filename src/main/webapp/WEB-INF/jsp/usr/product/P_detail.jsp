@@ -43,7 +43,15 @@
 							<div class="toast-ui-viewer">
 								<script type="text/x-template">${product.report }</script>
 							</div>
-						</td>
+						</td>	
+					</tr>
+					<tr>
+						<th>가격</th>
+						<td>${product.price }</td>
+					</tr>
+					<tr>
+						<th>수량</th>
+						<td>${product.count }</td>
 					</tr>
 				</tbody>
 			</table>
@@ -51,7 +59,9 @@
 		<div class="btns mt-2 flex justify-between ">
 			<div class=""><button class="btn-text-link btn btn-active" type="button"
 				onclick="history.back();">뒤로가기</button></div>
-			<div><a class="btn-text-link btn btn-active" href="">장바구니 담기</a>
+			<div><a class="btn-text-link btn btn-active"
+					href="../cart/doAdd?id=${cart.id }"
+					onclick="if(confirm('정말 추가하시겠습니까?') == false) return false;">장바구니 담기</a>
 			<a class="btn-text-link btn btn-active" href="">주문하기</a></div>
 		</div>
 	</div>

@@ -28,8 +28,16 @@
 				<li class="hover:underline"><a class="h-full px-3 flex items-center text-xs" href="/usr/member/login"><span>로그인</span></a></li>
 			</c:if>
 			<c:if test="${rq.getLoginedMemberId() != 0  }">
-				<li class="hover:underline"><a class="h-full px-3 flex items-center text-xs" href="/usr/member/myPage"><span>마이페이지</span></a></li>
+				<c:choose>
+					<c:when test="${rq.getLoginedMember().authLevel != 7 }">
+						<li class="hover:underline"><a class="h-full px-3 flex items-center text-xs" href="/usr/member/myPage"><span>MYPAGE</span></a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="hover:underline"><a class="h-full px-3 flex items-center text-xs" href="/adm/member/list"><span>회원관리</span></a></li>
+					</c:otherwise>
+				</c:choose>
 				<li class="hover:underline"><a class="h-full px-3 flex items-center text-xs" href="/usr/product/register"><span>상품등록</span></a></li>
+				<li class="hover:underline"><a class="h-full px-3 flex items-center text-xs" href="/usr/cart/C_list"><span>내 장바구니</span></a></li>
 				<li class="hover:underline"><a class="h-full px-3 flex items-center text-xs" href="/usr/member/doLogout"><span>로그아웃</span></a></li>
 			</c:if>
 		</ul>

@@ -3,10 +3,6 @@ package com.koreaIT.demo.controller;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -14,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,10 +18,8 @@ import com.koreaIT.demo.service.BoardService;
 import com.koreaIT.demo.service.ProductService;
 import com.koreaIT.demo.service.ReplyService;
 import com.koreaIT.demo.util.Util;
-import com.koreaIT.demo.vo.Article;
-import com.koreaIT.demo.vo.FileVO;
+import com.koreaIT.demo.vo.Board;
 import com.koreaIT.demo.vo.Product;
-import com.koreaIT.demo.vo.Reply;
 import com.koreaIT.demo.vo.Rq;
 
 @Controller
@@ -51,7 +46,7 @@ public class UsrProductController {
 	
 	@RequestMapping("/usr/product/doRegister")
 	@ResponseBody
-	public String doRegister(MultipartFile file, int boardId, String title, String report, String price) {
+	public String doRegister(MultipartFile file, int boardId, String title, String report, String price, int count) {
 
 		
 		if (Util.empty(title)) {
@@ -64,9 +59,12 @@ public class UsrProductController {
 		if (Util.empty(price)) {
 			return Util.jsHistoryBack("가격정보를 입력해주세요.");
 		}
+		if (count == 0) {
+			return Util.jsHistoryBack("수량정보를 입력해주세요.");
+		}
 		
 		try {
-			productService.saveFile(file, rq.getLoginedMemberId(), boardId, title, report, price);
+			productService.saveFile(file, rq.getLoginedMemberId(), boardId, title, report, price, count);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -74,25 +72,25 @@ public class UsrProductController {
 	}
 		
 	@RequestMapping("/usr/product/P_list")
-	public String showList(Model model) {
+	public String showList(Model model, @RequestParam(defaultValue = "3") int boardId, @RequestParam(defaultValue = "1") int page) {
 
-//		if (page <= 0) {
-//			return rq.jsReturnOnView("페이지번호가 존재하지 않습니다.", true);
-//		}
-//		Board board = boardService.getBoardById(boardId);
-//
-//		if (board == null) {
-//			return rq.jsReturnOnView("존재하지않는 게시글입니다.", true);
-//		}
-//
-//		int itemsInAPage = 10;
+		if (page <= 0) {
+			return rq.jsReturnOnView("페이지번호가 존재하지 않습니다.", true);
+		}
+		Board board = boardService.getBoardById(boardId);
 
-		List<Product> products = productService.getProducts();
-//		model.addAttribute("page", page);
+		if (board == null) {
+			return rq.jsReturnOnView("존재하지않는 게시글입니다.", true);
+		}
+
+		int itemsInAPage = 10;
+
+		List<Product> products = productService.getProducts(boardId, page);
+		model.addAttribute("page", page);
 //		model.addAttribute("pagesCount", pagesCount);
 //		model.addAttribute("articlesCnt", articlesCnt);
 		model.addAttribute("products", products);
-//		model.addAttribute("board", board);
+		model.addAttribute("board", board);
 //		model.addAttribute("searchKeywordType", searchKeywordType);
 //		model.addAttribute("searchKeyword", searchKeyword);
 

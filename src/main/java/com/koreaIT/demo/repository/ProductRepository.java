@@ -11,13 +11,12 @@ import com.koreaIT.demo.vo.Product;
 public interface ProductRepository {
 
 	void insertFileInfo(int memberId, int boardId, String title, String report, String orgName, String savedName,
-			String savedPath, String price);
+			String savedPath, String price, int count);
 
-	List<Product> getProducts();
+	List<Product> getProducts(int boardId, int page);
 
 	Product getProductyId(int fileId);
 
 	Product getForPrintProduct(int id);
-
 
 }

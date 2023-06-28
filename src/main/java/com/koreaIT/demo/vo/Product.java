@@ -17,6 +17,7 @@ public class Product {
 	private String title;
 	private String report;
 	private String price;
+	private int count;
 	private String orgName;
 	private String savedName;
 	private String savedPath;

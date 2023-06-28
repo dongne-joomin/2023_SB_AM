@@ -104,7 +104,7 @@
 				<a class="btn-text-link btn btn-active"
 					href="modify?id=${article.id }">수정</a>
 				<a class="btn-text-link btn btn-active"
-					href="doDelete?id=${article.id }"
+					href="../cart/doAdd?id=${article.id }"
 					onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;">삭제</a>
 			</c:if>
 		</div>
